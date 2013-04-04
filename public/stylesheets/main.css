@@ -35,3 +35,9 @@
     margin: 60px 0;
   }
   
+  /* Custom container */
+  .document-block .btn-group {
+    margin-bottom: 24px;
+    margin-top: 2px;
+  }
+  

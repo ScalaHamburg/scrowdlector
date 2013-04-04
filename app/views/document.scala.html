@@ -1,4 +1,4 @@
-@(content: String)
+@(document: model.Document)
 
 @main("Here comes your document") {
  
@@ -10,9 +10,31 @@
 		or
 		<a href="http://markdownj.org/">MarkdownJ</a>
       </p>
-
-	  <h4>Here is your file:</h4>
-         
-      <p>@content</p>
   </div>
+
+  <div class="row-fluid"> 
+	  <h4>Here is your file:</h4>
+        
+	  @for((text, hash) <- document.blocks) {
+  	  <div class="row-fluid document-block"> 
+	  	<div class="span1">
+			@commentButtons(hash)
+		</div>
+	  	<div class="span11">
+	  		<p>
+	  			@text
+	  		</p>
+		</div>
+	  </div>
+	  }
+  </div>
+}
+
+@commentButtons(hash: String) = {
+	<div class="btn-group btn-group-vertical">
+		<!--Comment-Hash: @hash -->
+		<a class="btn btn-mini" href="#" title="Add comment"><i class="icon-comment"></i></a>
+		<a class="btn btn-mini" href="#" title="Upvote (this is a good paragraph)"><i class="icon-thumbs-up"></i></a>
+		<a class="btn btn-mini" href="#" title="Downvote (this is a bad paragraph)"><i class="icon-thumbs-down"></i></a>
+	</div>
 }

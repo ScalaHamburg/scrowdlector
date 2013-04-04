@@ -3,7 +3,6 @@ package hashing
 import org.apache.commons.lang.StringUtils
 
 
-
 object TextBlockHash {
 	/**
 	 * First approach to cut a text into some blocks that may be commented.
@@ -36,12 +35,15 @@ object TextBlockHash {
 				case strm => block #:: strm
 				}
 		}
-		combineLines(text.linesWithSeparators.toStream)
+		
+		def hashBlock(block:String) = {
+		  // TODO wir brauchen unterschiedliche hashCodes, für blöcke die aus den selben Zeilen bestehen...
+			(block, block.hashCode().toString)
+		}
+	
+		combineLines(text.linesWithSeparators.toStream).map(hashBlock(_))
 	}
 	
-	def hashBlock(block:String) = {
-		(block, block.hashCode().toString)
-	}
 
 	def main(args: Array[String]) {
     val text = """|Zeile 1
@@ -55,7 +57,7 @@ object TextBlockHash {
       |noch ein Block 
       |(der dritte)""".stripMargin
 
-    val ergebnis = blockify(text).map(hashBlock(_))
+    val ergebnis = blockify(text)
     ergebnis.foreach { s =>
       println(">>>>>")
       println(s)
