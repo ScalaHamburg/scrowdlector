@@ -19,7 +19,7 @@ object TextBlockHash {
 				stream match {
 				case line #:: tail => {
 					
-					if (line.length < 2 /* TODO FIXME StringUtils.isBlank(line) */) {
+					if (line.isEmpty || line.length <= 2 /* TODO FIXME StringUtils.isBlank(line) */) {
 						if (block.size == 0) {
 							combine("", tail)
 						} else {
