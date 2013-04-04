@@ -1,7 +1,6 @@
 package hashing
 
-import org.apache.commons.lang.StringUtils
-
+// import org.apache.commons.lang.StringUtils
 
 object TextBlockHash {
 	/**
@@ -20,7 +19,7 @@ object TextBlockHash {
 				stream match {
 				case line #:: tail => {
 					
-					if (StringUtils.isBlank(line)) {
+					if (line.length < 2 /* TODO FIXME StringUtils.isBlank(line) */) {
 						if (block.size == 0) {
 							combine("", tail)
 						} else {
