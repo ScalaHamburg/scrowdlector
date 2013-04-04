@@ -80,3 +80,11 @@ A comment refers to a point in the text. The text can be branched. Are there any
 At all?
 Must we even do it in parallel to the text?
 
+# Technologische Aspekte
+
+## Eclipse Projekt erzeugen
+sbt "eclipse with-source=true"
+
+## Lokalen Server starten
+sbt run
+
