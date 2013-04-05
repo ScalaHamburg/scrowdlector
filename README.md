@@ -4,20 +4,20 @@ Eine Play-App zum kommentiewren von Text-Dateien.
 
 Diese Datei dient aber auch gleich als markdown test.
 
-## Was ist überhaupt das Problem?
+## Was ist ï¿½berhaupt das Problem?
 ------------------------------
 
-Ein Wiki ist geeignet zur Darstellung des aktuellen Konsenses. Wenn es Kontroversen gibt, muss oft gegen den "jeder darf editieren" verstoßen werden. Für den Wiki-Inhalt zeichnet niemand verantwortlich. Ein Wiki beruht auf Symmetrie zwischen den Benutzern.
+Ein Wiki ist geeignet zur Darstellung des aktuellen Konsenses. Wenn es Kontroversen gibt, muss oft gegen den "jeder darf editieren" verstoï¿½en werden. Fï¿½r den Wiki-Inhalt zeichnet niemand verantwortlich. Ein Wiki beruht auf Symmetrie zwischen den Benutzern.
 
-Gelegentlich ist diese Symmetrie nicht gegeben oder nicht gewünscht. Vielleicht soll ein Text entstehen, der einem Autor / einer Gruppe zuordenbar ist, da diese(r) am Ende dafür verantwortlich gemacht wird. Solche Texte schreibt man gegenwärtig meist allein. Das sollte inzwischen besser gehen.
+Gelegentlich ist diese Symmetrie nicht gegeben oder nicht gewï¿½nscht. Vielleicht soll ein Text entstehen, der einem Autor / einer Gruppe zuordenbar ist, da diese(r) am Ende dafï¿½r verantwortlich gemacht wird. Solche Texte schreibt man gegenwï¿½rtig meist allein. Das sollte inzwischen besser gehen.
 
-Ein typisches Beispiel ist die Erstellung einer Spezifikation, bei der die Meinung der Autoren normativ ist; Kommentatoren aber essentiell wichtig sind, um den Text verständlich und lesbar zu machen.
+Ein typisches Beispiel ist die Erstellung einer Spezifikation, bei der die Meinung der Autoren normativ ist; Kommentatoren aber essentiell wichtig sind, um den Text verstï¿½ndlich und lesbar zu machen.
 
-Wichtig: Das Prozess-Ziel ist, dass die Kommentare in ihrer Rolle als TODO verschwinden. Entweder werden sie erledigt, oder abgewiesen, oder aber als weiterführende Kommentare [wording?] behalten.
+Wichtig: Das Prozess-Ziel ist, dass die Kommentare in ihrer Rolle als TODO verschwinden. Entweder werden sie erledigt, oder abgewiesen, oder aber als weiterfï¿½hrende Kommentare [wording?] behalten.
 
-Wichtig: Jemand, der kommentiert, soll sich sicher sein können, dass sein Text nicht unwiederbringlich verschwindet. (Deswegen Datenhaltung mit Git, denn das kann jeder. :)
+Wichtig: Jemand, der kommentiert, soll sich sicher sein kï¿½nnen, dass sein Text nicht unwiederbringlich verschwindet. (Deswegen Datenhaltung mit Git, denn das kann jeder. :)
 
-Unklar: Skaliert das? Ich vermute, dass dieses Modell nur für eine überschaubare Anzahl von Kommentatoren funktioniert.
+Unklar: Skaliert das? Ich vermute, dass dieses Modell nur fï¿½r eine ï¿½berschaubare Anzahl von Kommentatoren funktioniert.
 
 
 ## Roles, Concepts, Use cases, Processes
@@ -87,4 +87,19 @@ sbt "eclipse with-source=true"
 
 ## Lokalen Server starten
 sbt run
+
+## Testing Specs with eclipse
+In order to be able to select your JUnit4 classes, you need to add the output directory of your project to your build path:
+
+- Select your project
+- Go to "Build Path / Configure Build Path"
+- In the "Libraries" tab, "Add Class Folder"
+- In the "Class Folder Selection" dialog, do "Create New Folder", name it testOutput
+- In the "New Folder" dialog, select "Advanced" and "Link to folder in the file system"
+- Select the output folder of your project by selecting variables.../PROJECT_LOC/.target
+- In the "Order and Export" tab, make sure that the newly created alias is placed before the main/scala/test directory
+- Refresh your project (F5 on the project's folder)  
+
+An example Specification is the TextBlockHashSpec.
+further documentation: http://code.google.com/p/specs/wiki/RunningSpecs#Run_your_specification_with_JUnit4_in_Eclipse
 
