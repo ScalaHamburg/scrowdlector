@@ -32,13 +32,14 @@ object TextBlockHash {
         case strm       => strm
       }
     }
-    combineLines(text.linesWithSeparators.toStream)
+    combineLines(text.linesWithSeparators.toStream).map(hashBlock(_))
   }
 
   /**
    * creates a Hash of the
    */
   def hashBlock(block: String) = {
+	// TODO wir brauchen unterschiedliche hashCodes, für blöcke die aus den selben Zeilen bestehen... oder?
     (block, block.hashCode().toString)
   }
 }
