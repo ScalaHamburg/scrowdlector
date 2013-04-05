@@ -39,10 +39,10 @@ class DocumentSpec extends SpecificationWithJUnit {
      *italic*   **bold**\n_italic_   __bold__
   	""".stripMargin)
 
-  "Document" should {
+  "Document blocks" should {
 
-    "have markdown inside" in {
-      document.blocks.foreach(println)
+    "have HTML markup inside" in {
+      document.blocks(0)._1.body must contain ("<h2>")
     }
 
    
