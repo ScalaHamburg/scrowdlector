@@ -1,9 +1,9 @@
 package model
 
-import hashing.TextBlockHash
+import hashing.TextBlockHash._
 
 case class Document (val rawText: String) {
-  val blocks = TextBlockHash.blockify(rawText)
+  val blocks = blockify(rawText).map(hashBlock(_))
   
   // TODO implement me
   def toJson() = {
