@@ -32,11 +32,11 @@ object TextBlockHash {
         case strm       => strm
       }
     }
-    combineLines(text.linesWithSeparators.toStream).map(hashBlock(_))
+    combineLines(text.linesWithSeparators.toStream)
   }
 
   /**
-   * creates a Hash of the
+   * After the Ttext was blockified we create a Hash of each block
    */
   def hashBlock(block: String) = {
 	// TODO wir brauchen unterschiedliche hashCodes, für blöcke die aus den selben Zeilen bestehen... oder?
