@@ -6,5 +6,8 @@ tmp
 .history
 .idea
 .idea_modules
-
+.classpath
+.project
+/.target
+/.settings
 /bin

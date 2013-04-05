@@ -1,6 +1,5 @@
 package hashing
 
-
 object TextBlockHash {
   /**
    * First approach to cut a text into some blocks that may be commented.
@@ -11,7 +10,7 @@ object TextBlockHash {
       stream match {
         case line #:: tail => {
 
-          if (line.trim().length()==0) {
+          if (line.trim().length() == 0) {
             if (block.size == 0) {
               combine("", tail)
             } else {
@@ -37,30 +36,9 @@ object TextBlockHash {
   }
 
   /**
-   * creates a Hash of the 
+   * creates a Hash of the
    */
   def hashBlock(block: String) = {
-  	(block, block.hashCode().toString)
-  }
-
-  def main(args: Array[String]) {
-    val text = """|Zeile 1
-  	  |Zeile 2
-  	  |Zeile 3
-    	|
-  	  |Block2
-  	  |usw.
-      |
-      |
-      |noch ein Block 
-      |(der dritte)""".stripMargin
-
-    val ergebnis = blockify(text).map(hashBlock(_))
-    ergebnis.foreach { s =>
-      println(">>>>>")
-      println(s)
-      println("<<<<<")
-    }
-
+    (block, block.hashCode().toString)
   }
 }

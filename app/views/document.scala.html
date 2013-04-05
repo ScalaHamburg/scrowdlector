@@ -1,12 +1,40 @@
-@(content: String)
+@(document: model.Document)
 
 @main("Here comes your document") {
  
-	<b>Somebody needs to transfer the content to proper htlm!!!</b>
-	<br/>
-	May have a look here:
-	<a href="http://stackoverflow.com/questions/1319657/javascript-to-convert-markdown-textile-to-html-and-ideally-back-to-markdown-t" >Stackoverflow - Markdown to HTML</a>
+  <div class="row-fluid"> 
+	  <h4>Somebody needs to transfer the content to proper htlm!!!</h4>
+          
+	  <p>May have a look here:
+	    <a href="http://stackoverflow.com/questions/1319657/javascript-to-convert-markdown-textile-to-html-and-ideally-back-to-markdown-t" >Stackoverflow - Markdown to HTML</a>
+		or
+		<a href="http://markdownj.org/">MarkdownJ</a>
+      </p>
+  </div>
 
-    <p>@content</p>
-    
+  <div class="row-fluid"> 
+	  <h4>Here is your file:</h4>
+        
+	  @for((text, hash) <- document.blocks) {
+  	  <div class="row-fluid document-block"> 
+	  	<div class="span1">
+			@commentButtons(hash)
+		</div>
+	  	<div class="span11">
+	  		<p>
+	  			@text
+	  		</p>
+		</div>
+	  </div>
+	  }
+  </div>
+}
+
+@commentButtons(hash: String) = {
+	<div class="btn-group btn-group-vertical">
+		<!--Comment-Hash: @hash -->
+		<a class="btn btn-mini" href="#" title="Add comment"><i class="icon-comment"></i></a>
+		<a class="btn btn-mini" href="#" title="Upvote (this is a good paragraph)"><i class="icon-thumbs-up"></i></a>
+		<a class="btn btn-mini" href="#" title="Downvote (this is a bad paragraph)"><i class="icon-thumbs-down"></i></a>
+	</div>
 }
