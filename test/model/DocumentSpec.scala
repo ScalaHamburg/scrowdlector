@@ -1,25 +1,27 @@
-package controllers
+package model
 
-import play.api._
-import play.api.mvc._
-import model.Document
+import org.specs2.mutable._
+import play.api.test._
+import play.api.test.Helpers._
+import org.specs2.runner.JUnitRunner
+import org.junit.runner.RunWith
 
-object Application extends Controller {
-  
-  def index = Action {
-    Ok(views.html.index())
-  }
-  
-  def view(url: String) = Action {
-    // TODO load content from DocumentService by url!
-  	    val document = new Document(
+/**
+ * Add your spec here.
+ * You can mock out a whole application including requests, plugins etc.
+ * For more information, consult the wiki.
+ */
+@RunWith(classOf[JUnitRunner])
+class DocumentSpec extends SpecificationWithJUnit {
+
+ val document = new Document(
   	"""
-  	|# Scrowdlector #
+  	|## Scrowdlector ##
   	|
   	|Eine Play-App zum kommentiewren von Text-Dateien.
   	|Diese Datei dient aber auch gleich als markdown test.
   	|
-  	|## Was ist überhaupt das Problem? ##
+  	|## Was ist überhaupt das Problem?
   	|------------------------------
   	|
   	|Ein Wiki ist geeignet zur Darstellung des aktuellen Konsenses. Wenn es Kontroversen gibt, muss oft gegen den "jeder darf editieren" verstoßen werden. nhalt zeichnet niemand verantwortlich. Ein Wiki beruht auf Symmetrie zwischen den Benutzern.
@@ -27,21 +29,23 @@ object Application extends Controller {
   	|
   	|Ein typisches Beispiel ist die Erstellung einer Spezifikation, bei der die Meinung der Autoren normativ ist; Kommentatoren aber essentiell wichtig sind, um den Text verständlich und lesbar zu machen.
   	|
-  	|## Roles, Concepts, Use cases, Processes ##
+  	|## Roles, Concepts, Use cases, Processes
   	|
-  	|### Roles ###
-  	|#### Author ####
+  	|### Roles
+  	|#### Author
   	|There may be several of them. Autors have the right to edit the main text.
-  	|#### Commenter ####
+  	|#### Commenter
   	|There may be many of them. Commenters, well, comment.
-  	|        
-  	|        Markdown check:
-  	|*italic*   **bold**
-  	|_italic_   __bold__
+     *italic*   **bold**\n_italic_   __bold__
   	""".stripMargin)
-    println(document)
-    println(document.blocks)
-    Ok(views.html.document(document))
+
+  "Document" should {
+
+    "have markdown inside" in {
+      document.blocks.foreach(println)
+    }
+
+   
+
   }
-  
 }

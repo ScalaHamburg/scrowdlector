@@ -14,7 +14,9 @@ object ApplicationBuild extends Build {
 	scalaVersion := "2.10.0" 
 	
     val main = play.Project(appName, appVersion, appDependencies).settings(
-		// Add your own project settings here      
+		// Add your own project settings here   
+		libraryDependencies += "eu.henkelmann" % "actuarius_2.10.0" % "0.2.5"
+		
     )
 
 }

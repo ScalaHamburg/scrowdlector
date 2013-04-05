@@ -1,9 +1,16 @@
 package model
 
 import hashing.TextBlockHash._
+import play.api.templates.Html
+import eu.henkelmann.actuarius.ActuariusTransformer
 
 case class Document (val rawText: String) {
-  val blocks = blockify(rawText).map(hashBlock(_))
+  val rawBlocks = blockify(rawText).map(hashBlock(_))
+  
+  val transformer = new ActuariusTransformer()
+  
+  val blocks=  rawBlocks.map( tpl => (Html(transformer(tpl._1)),tpl._2))
+  
   
   // TODO implement me
   def toJson() = {
