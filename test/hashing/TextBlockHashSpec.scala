@@ -6,6 +6,7 @@ import play.api.test.Helpers._
 import hashing.TextBlockHash._
 import org.specs2.runner.JUnitRunner
 import org.junit.runner.RunWith
+import org.hamcrest.core.IsInstanceOf
 
 /**
  * Add your spec here.
@@ -40,6 +41,10 @@ class TextBlockHashSpec extends SpecificationWithJUnit {
     "create a different hash for unequal blocks" in {
     	(hashBlock("123TestA")._2) !== (hashBlock("123TestB")._2)
     }
-
+    
+    "should return a sequence of Pairs (text + hash!)" in {
+      // TODO I couldnt get the instaneOf test working...
+      blockify(text).head._2 === "623187366"
+    }
   }
 }

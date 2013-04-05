@@ -18,8 +18,8 @@ class IntegrationSpec extends Specification {
 
         browser.goTo("http://localhost:3333/")
 
-        browser.pageSource must contain("Your new application is ready.")
-       
+        browser.pageSource must contain("Scrowd Lector")
+        browser.pageSource must contain("No pain, pure awesomeness.")
       }
     }
     
