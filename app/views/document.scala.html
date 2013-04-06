@@ -1,33 +1,27 @@
 @(document: model.Document)
 
 @main("Here comes your document") {
- 
   <div class="row-fluid"> 
-	  <h4>Somebody needs to transfer the content to proper htlm!!!</h4>
-          
-	  <p>May have a look here:
-	    <a href="http://stackoverflow.com/questions/1319657/javascript-to-convert-markdown-textile-to-html-and-ideally-back-to-markdown-t" >Stackoverflow - Markdown to HTML</a>
-		or
-		<a href="http://markdownj.org/">MarkdownJ</a>
-      </p>
-  </div>
-
-  <div class="row-fluid"> 
-	  <h4>Here is your file:</h4>
-        
+	  <center>
+	    <h3>Please review the following document</h3>
+	    <p>You can upvote and downvote paragraphs or add commets to it, by using the icons on the left.</p>
+	  </center>
+	  <hr/>
+      
+      <div class="document">
 	  @for((text, hash) <- document.blocks) {
-  	  <div class="row-fluid document-block"> 
-	  	<div class="span1">
-			@commentButtons(hash)
-		</div>
-	  	<div class="span11">
+  	    <div class="row-fluid document-block"> 
+	  	  <div class="span1">
+		     @commentButtons(hash)
+		  </div>
+	  	  <div class="span11">
 	  		<p>
 	  			@text
 	  		</p>
-		</div>
-	  </div>
+		  </div>
+	    </div>
 	  }
-	  
+	  </div>
   </div>
 }
 

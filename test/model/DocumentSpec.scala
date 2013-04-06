@@ -40,12 +40,8 @@ class DocumentSpec extends SpecificationWithJUnit {
   	""".stripMargin)
 
   "Document blocks" should {
-
     "have HTML markup inside" in {
       document.blocks(0)._1.body must contain ("<h2>")
     }
-
-   
-
   }
 }
