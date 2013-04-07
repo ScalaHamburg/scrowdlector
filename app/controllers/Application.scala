@@ -3,6 +3,10 @@ package controllers
 import play.api._
 import play.api.mvc._
 import model.Document
+import service.CommentService
+import service.CommentService
+import model.Comment
+import play.api.libs.json.Json
 
 object Application extends Controller {
   
@@ -42,6 +46,14 @@ object Application extends Controller {
     println(document)
     println(document.blocks)
     Ok(views.html.document(document))
+  }
+  
+  def comments(documentBlockIdentifier: String) = Action {
+    // TODO load content from CommentsService by documentBlockIdentifier!
+    val comments = List(new Comment("Nice article!", documentBlockIdentifier), new Comment("Really nice article, indeed!!!", documentBlockIdentifier))
+    
+    val json = Json.toJson(comments)
+    Ok(json).as("application/json")
   }
   
 }
