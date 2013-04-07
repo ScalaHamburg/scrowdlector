@@ -6,10 +6,7 @@ import eu.henkelmann.actuarius.ActuariusTransformer
 
 case class Document (val rawText: String) {
   val rawBlocks = blockify(rawText).map(hashBlock(_))
-   
-  val transformer = new ActuariusTransformer()
-  
-  val blocks=  rawBlocks.map( tpl => (Html(transformer(tpl._1)),tpl._2))
+  val blocks=  rawBlocks.map( tpl => (Html(new ActuariusTransformer()(tpl._1)),tpl._2))
   
   
   // TODO implement me
