@@ -1,5 +1,6 @@
 package hashing
 
+
 object TextBlockHash {
   /**
    * First approach to cut a text into some blocks that may be commented.
@@ -41,5 +42,18 @@ object TextBlockHash {
   def hashBlock(block: String) = {
 	// TODO wir brauchen unterschiedliche hashCodes, für blöcke die aus den selben Zeilen bestehen... oder?
     (block, block.hashCode().toString)
+  }
+  
+  def compareBlocks(blockA: String, blockB: String)={
+  	val a = blockA.split("""\s+""")
+  	val b = blockB.split("""\s+""")
+  	var weight = 0
+  	for(aToken <- a){
+  	  if( ! b.contains(aToken)) weight +=1
+  	}
+  	for(bToken <- b){
+  		if( ! a.contains(bToken)) weight +=1
+  	}
+  	weight
   }
 }

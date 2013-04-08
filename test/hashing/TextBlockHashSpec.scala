@@ -35,16 +35,31 @@ class TextBlockHashSpec extends SpecificationWithJUnit {
     }
 
     "create the same hash for equal blocks" in {
-    	(hashBlock("123Test")._2) === (hashBlock("123Test")._2)
+      (hashBlock("123Test")._2) === (hashBlock("123Test")._2)
     }
 
     "create a different hash for unequal blocks" in {
-    	(hashBlock("123TestA")._2) !== (hashBlock("123TestB")._2)
+      (hashBlock("123TestA")._2) !== (hashBlock("123TestB")._2)
     }
-    
+
     "should return a sequence of Pairs (text + hash!)" in {
       // TODO I couldnt get the instaneOf test working...
       hashBlock(blockify(text).head)._2 === "623187366"
+    }
+
+    "compareBlocks should return 0 when called with equal blocks" in {
+      val blockA = "a simple 	example      block"
+      val blockB = "a\rsimple\nexample block"
+
+      compareBlocks(blockA, blockB) === 0
+    }
+
+    "compareBlocks should return a larger value for more differences" in {
+      val blockA = "a simple example block"
+   		val blockB = "a different example block"
+   		val blockC = "this is a different example block"
+
+      compareBlocks(blockA, blockB) must be lessThan compareBlocks(blockA, blockC)
     }
   }
 }
