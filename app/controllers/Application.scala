@@ -7,6 +7,7 @@ import service.CommentService
 import service.CommentService
 import model.Comment
 import play.api.libs.json.Json
+import app.ApplicationContext._
 
 object Application extends Controller {
   
@@ -15,45 +16,18 @@ object Application extends Controller {
   }
   
   def view(url: String) = Action {
-    // TODO load content from DocumentService by url!
-  	    val document = new Document(
-  	"""
-  	|# Scrowdlector #
-  	|
-  	|Eine Play-App zum kommentiewren von Text-Dateien.
-  	|Diese Datei dient aber auch gleich als markdown test.
-  	|
-  	|## Was ist überhaupt das Problem? ##
-  	|------------------------------
-  	|
-  	|Ein Wiki ist geeignet zur Darstellung des aktuellen Konsenses. Wenn es Kontroversen gibt, muss oft gegen den "jeder darf editieren" verstoßen werden. nhalt zeichnet niemand verantwortlich. Ein Wiki beruht auf Symmetrie zwischen den Benutzern.
-  	|Gelegentlich ist diese Symmetrie nicht gegeben oder nicht gewünscht. Vielleicht soll ein Text entstehen, der einem Autor / einer Gruppe zuordenbar ist, da diese(r) am Ende dafür verantwortlich gemacht wird. Solche Texte schreibt man gegenwärtig meist allein. Das sollte inzwischen besser gehen.
-  	|
-  	|Ein typisches Beispiel ist die Erstellung einer Spezifikation, bei der die Meinung der Autoren normativ ist; Kommentatoren aber essentiell wichtig sind, um den Text verständlich und lesbar zu machen.
-  	|
-  	|## Roles, Concepts, Use cases, Processes ##
-  	|
-  	|### Roles ###
-  	|#### Author ####
-  	|There may be several of them. Autors have the right to edit the main text.
-  	|#### Commenter ####
-  	|There may be many of them. Commenters, well, comment.
-  	|        
-  	|        Markdown check:
-  	|*italic*   **bold**
-  	|_italic_   __bold__
-  	""".stripMargin)
-    println(document)
-    println(document.blocks)
-    Ok(views.html.document(document))
+    val document = documentService.find(url)
+  	    
+    document.map(d =>
+      Ok(views.html.document(d))
+    ).getOrElse(
+      BadRequest("Document with url '" + url + "' not found")
+    )
   }
   
   def comments(documentBlockIdentifier: String) = Action {
-    // TODO load content from CommentsService by documentBlockIdentifier!
-    val comments = List(new Comment("Nice article!", documentBlockIdentifier), new Comment("Really nice article, indeed!!!", documentBlockIdentifier))
-    
+    val comments = commentService.find(documentBlockIdentifier)   
     val json = Json.toJson(comments)
     Ok(json).as("application/json")
   }
-  
 }
