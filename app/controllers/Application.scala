@@ -10,6 +10,7 @@ import play.api.libs.json.Json
 import model.MarkdownText
 import model.ScalaCode
 import service.DocumentService
+import views.html.defaultpages.badRequest
 
 object Application extends Controller {
   
@@ -24,7 +25,7 @@ object Application extends Controller {
     
     docService.find(url).map{
       d  => Ok(views.html.document(d))
-    }.getOrElse(NotFound)
+    }.getOrElse(BadRequest)
 
   }
   
