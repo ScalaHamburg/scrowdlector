@@ -1,12 +1,11 @@
 package hashing
 
-import org.specs2.mutable._
-import play.api.test._
-import play.api.test.Helpers._
-import hashing.TextBlockHash._
-import org.specs2.runner.JUnitRunner
 import org.junit.runner.RunWith
-import org.hamcrest.core.IsInstanceOf
+import org.specs2.mutable._
+import org.specs2.runner.JUnitRunner
+
+import hashing.TextBlockHash._
+import play.api.test.Helpers._
 
 /**
  * Add your spec here.

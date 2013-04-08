@@ -25,7 +25,7 @@ object Application extends Controller {
     
     docService.find(url).map{
       d  => Ok(views.html.document(d))
-    }.getOrElse(BadRequest)
+    }.getOrElse(BadRequest) // Why the hell does this not work?
 
   }
   

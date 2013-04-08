@@ -16,7 +16,13 @@ object TextBlockHash {
   def explicitBlockStrategy: FindBlockBorder = { line: String => line.matches(explicitBlockPattern) } // finds lines containing: [id:{blockid}] where {blockid} is alphanumeric 
 
   // strategies for hash creation
+  /**
+   * Hash is built from the Block-contents
+   */
   def buildSimpleHashStrategy: CreateBlockID = { block: String => block.hashCode().toString }
+  /**
+   * Id is extracted from block marker eg: [id:123]
+   */
   def extractExplicitIdStrategy: CreateBlockID = {
     block: String =>
       val line = block.lines.find(explicitBlockStrategy).getOrElse("")
@@ -24,6 +30,9 @@ object TextBlockHash {
       pattern.findFirstMatchIn(line).map(grp => grp.group(1)).getOrElse("")
   }
 
+  /**
+   * convenience function to create (block,hash) tuples
+   */
   def breakIntoIdentifiableBlocks(text: String, blockStrategy:FindBlockBorder, createHash: CreateBlockID) = {
     blockify(text, blockStrategy).map(identifyBlock(_, createHash))
   }
@@ -39,7 +48,11 @@ object TextBlockHash {
         case line #:: tail => {
 
           if (findBlockBorder(line)) {
-              (block + line) #:: combine("", tail)
+            if(block.trim().length() == 0 && line.trim().length==0){
+            	combine("", tail)
+            }else{
+            	(block + line) #:: combine("", tail)
+            }
           } else {
             combine(block + line, tail)
           }
