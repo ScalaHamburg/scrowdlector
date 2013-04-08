@@ -7,6 +7,7 @@ import service.CommentService
 import service.CommentService
 import model.Comment
 import play.api.libs.json.Json
+import model.MarkdownText
 
 object Application extends Controller {
   
@@ -42,7 +43,7 @@ object Application extends Controller {
   	|        Markdown check:
   	|*italic*   **bold**
   	|_italic_   __bold__
-  	""".stripMargin)
+  	""".stripMargin, MarkdownText)
     println(document)
     println(document.blocks)
     Ok(views.html.document(document))

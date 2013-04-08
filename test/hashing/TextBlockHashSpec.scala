@@ -22,11 +22,12 @@ class TextBlockHashSpec extends SpecificationWithJUnit {
 			|Zeile 3
 			|
 			|Block2
-			|usw.
+			|usw. // [id:Block123456789]
 			|
 			|
 			|noch ein Block 
-			|(der dritte)""".stripMargin
+			|(der dritte)// [id:Block2]
+  		|""".stripMargin
 
   "TextBlockHash" should {
 
@@ -34,17 +35,24 @@ class TextBlockHashSpec extends SpecificationWithJUnit {
       blockify(text) must have size 3
     }
 
+    "recognize two blocks" in {
+    	blockify(text, explicitBlockStrategy) must have size 2
+    }
+    "extract id with extractExplicitIdStrategy" in {
+      identifyBlock("noch ein Block\n(der dritte)// [id:Block2]", extractExplicitIdStrategy)._2 === "Block2"
+    } 
+
     "create the same hash for equal blocks" in {
-      (hashBlock("123Test")._2) === (hashBlock("123Test")._2)
+      (identifyBlock("123Test", buildSimpleHashStrategy)._2) === (identifyBlock("123Test", buildSimpleHashStrategy)._2)
     }
 
     "create a different hash for unequal blocks" in {
-      (hashBlock("123TestA")._2) !== (hashBlock("123TestB")._2)
+      (identifyBlock("123TestA", buildSimpleHashStrategy)._2) !== (identifyBlock("123TestB", buildSimpleHashStrategy)._2)
     }
 
     "should return a sequence of Pairs (text + hash!)" in {
       // TODO I couldnt get the instaneOf test working...
-      hashBlock(blockify(text).head)._2 === "623187366"
+      identifyBlock(blockify(text).head, buildSimpleHashStrategy)._2 === "1882604995"
     }
 
     "compareBlocks should return 0 when called with equal blocks" in {
