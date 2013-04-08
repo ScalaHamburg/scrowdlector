@@ -89,7 +89,9 @@ sbt "eclipse with-source=true"
 sbt run
 
 ## show document ##
-http://localhost:9000/view/document
+http://localhost:9000/view/example.md
+or
+http://localhost:9000/view/example.scala
 
 ## Testing Specs with eclipse ##
 In order to be able to select your JUnit4 classes, you need to add the output directory of your project to your build path:
