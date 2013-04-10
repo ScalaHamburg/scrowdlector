@@ -3,7 +3,7 @@ package service
 import model.Comment
 
 trait CommentService {
-  def find(documentIdentifier: String): Seq[Comment] = {
-    List()
-  }
+  def find(documentBlockIdentifier: String): Seq[Comment]
+  
+  def add(comment: String, documentBlockIdentifier: String)
 }
