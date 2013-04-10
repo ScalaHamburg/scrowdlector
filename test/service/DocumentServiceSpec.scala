@@ -10,7 +10,7 @@ import model.Default
 
 @RunWith(classOf[JUnitRunner])
 class DocumentServiceSpec extends SpecificationWithJUnit {
-  val service = new DocumentService() {}
+  val service = new InMemoryDocumentService() 
 
   val text =
     """|Block 1 (stays the same))

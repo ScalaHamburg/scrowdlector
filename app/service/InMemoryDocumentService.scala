@@ -2,10 +2,13 @@ package service
 
 import model.Comment
 import model.Document
+import model.MarkdownText
+import model.ScalaCode
+import hashing.TextBlockHash.CreateBlockID
 
 class InMemoryDocumentService extends DocumentService {
-  val document = new Document(
-  	"""
+  val markdownText =
+    """
   	|# Scrowdlector #
   	|
   	|Eine Play-App zum kommentiewren von Text-Dateien.
@@ -30,9 +33,35 @@ class InMemoryDocumentService extends DocumentService {
   	|        Markdown check:
   	|*italic*   **bold**
   	|_italic_   __bold__
-  	""".stripMargin)  
-  
+  	""".stripMargin
+
+  val scalaCode = """
+  	|package model
+  	|
+  	|import hashing.TextBlockHash._ //[id:head]
+  	|
+  	|sealed trait DocumentType { 
+    |	def name: String
+    |	def blockStrategy : FindBlockBorder = newlineBlockStrategy
+    |	def idStrategy : CreateBlockID = buildSimpleHashStrategy
+    |} // [id:mainClass]
+  	|  
+    |case object MarkdownText extends DocumentType { val name = "Markdown" } // [id:case1] 
+  	|  
+    |case object ScalaCode extends DocumentType { 
+    |	val name = "Scala"
+    |	override def blockStrategy = explicitBlockStrategy
+    |	override def idStrategy = extractExplicitIdStrategy
+    |}//[id:case2]
+  	|""".stripMargin
+
+  // dummy Implementation until GIT repo is implemented
+  // real world implementation may find DocumentType by file extension.
   def find(url: String): Option[Document] = {
-    Some(document)
+    url match {
+      case "example.md" => Some(new Document(markdownText, MarkdownText))
+      case "example.scala" => Some(new Document(scalaCode, ScalaCode))
+      case _ => None
+    }
   }
 }
