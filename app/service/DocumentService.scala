@@ -17,29 +17,28 @@ trait DocumentService {
    */
   def compareDocuments(original: Document, newVersion: Document): List[(String, Option[String], String, Option[String], Int)] = {
     /**
-     * create map with the hash as key
-     *
+     * create map of blocks with the hash as key
      */
     def docToMap(doc: model.Document): scala.collection.immutable.Map[String, String] = {
       val docInversed = for { (block, hash) <- doc.rawBlocks } yield (hash, block)
       docInversed.toMap
     }
 
-    def findChanges(origMap: scala.collection.immutable.Map[String, String], newVersMap: scala.collection.immutable.Map[String, String]): scala.collection.immutable.Map[String, String] = {
+    /**
+     * returns a map containing mappings from origMap that are not contained in newVersMap
+     */
+    def findChanges(origMap: Map[String, String], newVersMap: Map[String, String]): Map[String, String] = {
       origMap.filter(tpl => !newVersMap.contains(tpl._1))
     }
 
+    /**
+     * finds changed blocks
+     */
     def detectChanges(oldMap: Map[String, String], newMap: Map[String, String], idStrategy: CreateBlockID) = {
       val newValues = newMap.values.toList;
       val oldValues = oldMap.values.toList;
 
-      if (newValues.isEmpty) {
-        // no new Blocks added, that means all in oldValues are removed!
-        oldValues.map(str => (str, Some(idStrategy(str)), "", None, 0))
-      } else if (oldValues.isEmpty) {
-        // no old Blocks present, that means all in newValues are new Blocks
-        newValues.map(str => ("", None, str, Some(idStrategy(str)), 0))
-      } else {
+      if(!newValues.isEmpty && !oldValues.isEmpty){
         val res = for {
           oldValue <- oldValues
         } yield {
@@ -61,8 +60,11 @@ trait DocumentService {
               case None => true
             }
         }
+      }else{
+        List()
       }
     }
+    
     def addNewBlocks(newMap: Map[String, String], changes: List[(String, Option[String], String, Option[String], Int)], idStrategy: CreateBlockID) = {
       val newValues = newMap.values.toList;
 
