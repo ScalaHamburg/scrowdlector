@@ -53,20 +53,7 @@ class TextBlockHashSpec extends SpecificationWithJUnit {
       // TODO I couldnt get the instaneOf test working...
       identifyBlock(blockify(text).head, buildSimpleHashStrategy)._2 === "1882604995"
     }
-
-    "compareBlocks should return 0 when called with equal blocks" in {
-      val blockA = "a simple 	example      block"
-      val blockB = "a\rsimple\nexample block"
-
-      compareBlocks(blockA, blockB) === 0
-    }
-
-    "compareBlocks should return a larger value for more differences" in {
-      val blockA = "a simple example block"
-   		val blockB = "a different example block"
-   		val blockC = "this is a different example block"
-
-      compareBlocks(blockA, blockB) must be lessThan compareBlocks(blockA, blockC)
-    }
+    
+    
   }
 }

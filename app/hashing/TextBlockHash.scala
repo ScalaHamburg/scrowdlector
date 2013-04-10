@@ -85,14 +85,4 @@ object TextBlockHash {
     (block, createHash(block))
   }
 
-  /**
-   * This first, very simple approach compares all the tokens of both Strings
-   * Added or removed words add +1 to the distance.
-   */
-  def compareBlocks(blockA: String, blockB: String) = {
-    val a = blockA.split("""\s+""") // split at (and ignore) whitespace
-    val b = blockB.split("""\s+""")
-    a.foldLeft(0)((count, token) => if (b.contains(token)) count else count + 1) +
-      b.foldLeft(0)((count, token) => if (a.contains(token)) count else count + 1)
-  }
 }
