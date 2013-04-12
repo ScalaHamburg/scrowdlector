@@ -7,6 +7,7 @@ import hashing.TextBlockHash._
 import play.api.test.Helpers._
 import model.Document
 import model.Default
+import scala.io.Source
 
 @RunWith(classOf[JUnitRunner])
 class DocumentServiceSpec extends SpecificationWithJUnit {
@@ -53,42 +54,35 @@ class DocumentServiceSpec extends SpecificationWithJUnit {
 
     "compareDocuments should detect removal." in {
       val docA = new Document(text, Default)
-      docA.rawBlocks.foreach(println)
       val docR = new Document(removedText, Default)
       val diff = service.compareDocuments(docA, docR)
 
-      println("\ndifferences:")
-      diff.foreach(println)
       diff should have size 1
-      diff.head._1 startsWith ("This one (2) will be removed")
-      diff.head._3 === ""
-      diff.head._4 === None
+      diff.head.oldValue startsWith ("This one (2) will be removed")
+      diff.head.newValue === ""
+      diff.head.newHash === None
     }
 
     "compareDocuments should detect addition." in {
       val docA = new Document(text, Default)
-      docA.rawBlocks.foreach(println)
       val docB = new Document(addedText, Default)
       val diff = service.compareDocuments(docA, docB)
 
-      println("\ndifferences:")
-      diff.foreach(println)
       diff should have size 1
-      diff.head._1 === ""
-      diff.head._2 === None
-      diff.head._3 startsWith ("this is added")
+      diff.head.oldValue === ""
+      diff.head.oldHash === None
+      diff.head.newValue startsWith ("this is added")
     }
 
     "compareDocuments should detect changes." in {
       val docA = new Document(text, Default)
-      docA.rawBlocks.foreach(println)
       val docB = new Document(changedText, Default)
       val diff = service.compareDocuments(docA, docB)
 
       diff should have size 2
-      diff.head._1 startsWith "This one (2) will be removed"
-      diff.head._3 startsWith ("This one (2) will not be removed")
-      diff.head._2 !== diff.head._4
+      diff.head.oldValue startsWith "This one (2) will be removed"
+      diff.head.newValue startsWith ("This one (2) will not be removed")
+      diff.head.oldHash !== diff.head.newHash
     }
 
     "compareDocuments: removing while adding a new one will result in an ambiguous 'change'" in {
@@ -101,6 +95,16 @@ class DocumentServiceSpec extends SpecificationWithJUnit {
       println("\ndifferences:")
       diff.foreach(println)
       diff should have size 2
+    }
+    
+    "compareDocuments of the two testfiles should show 3 differences" in {
+      val file1 = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("service/TestFile_1.md"))
+      val file2 = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("service/TestFile_2.md"))
+      val doc1 = new Document(file1.getLines.reduceLeft( (a, b) => a+"\n"+b), Default)
+      val doc2 = new Document(file2.getLines.reduceLeft( (a, b) => a+"\n"+b), Default)
+      val diff = service.compareDocuments(doc1, doc2)
+      diff.foreach(println)
+       diff should have size 3
     }
 
     "compareBlocks should return 0 when called with equal blocks" in {
