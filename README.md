@@ -108,3 +108,8 @@ In order to be able to select your JUnit4 classes, you need to add the output di
 An example Specification is the TextBlockHashSpec.
 further documentation: http://code.google.com/p/specs/wiki/RunningSpecs#Run_your_specification_with_JUnit4_in_Eclipse
 
+## logging ##
+This project uses ScalaLogging with logback as it's backend
+- Example logging setup may be found in Application.scala
+- The logback configuration file is conf/logger.xml
+- the root logger in application.conf needs to be disabled

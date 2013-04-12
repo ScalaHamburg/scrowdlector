@@ -15,7 +15,8 @@ object ApplicationBuild extends Build {
 	
     val main = play.Project(appName, appVersion, appDependencies).settings(
 		// Add your own project settings here   
-		libraryDependencies += "eu.henkelmann" % "actuarius_2.10.0" % "0.2.5"
+		libraryDependencies ++= Seq("eu.henkelmann" % "actuarius_2.10.0" % "0.2.5" ,
+		 "com.typesafe" %% "scalalogging-slf4j" % "1.0.1")
 		
     )
 

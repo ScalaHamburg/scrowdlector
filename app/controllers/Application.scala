@@ -8,8 +8,10 @@ import service.CommentService
 import model.Comment
 import play.api.libs.json.Json
 import app.ApplicationContext._
+import com.typesafe.scalalogging.slf4j.Logger
+import com.typesafe.scalalogging.slf4j.Logging
 
-object Application extends Controller {
+object Application extends Controller with Logging {
   
   def index = Action {
     Ok(views.html.index())
@@ -17,8 +19,10 @@ object Application extends Controller {
   
   def view(url: String) = Action {
     val document = documentService.find(url)
-  	    
-    document.map(d =>
+    
+  	logger.info("Loading Document from URL: {}", url)
+    
+  	document.map(d =>
       Ok(views.html.document(d))
     ).getOrElse(
       BadRequest("Document with url '" + url + "' not found")

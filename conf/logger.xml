@@ -1,0 +1,31 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>logs/scrowdlector.log</file>
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <root level="error">
+    <appender-ref ref="FILE" />
+  </root>
+  
+  <logger name="app" level="DEBUG">  </logger>
+  <logger name="controllers" level="DEBUG">  </logger>
+  <logger name="hashing" level="DEBUG">  </logger>
+  <logger name="model" level="DEBUG">  </logger>
+  <logger name="service" level="DEBUG">  </logger>
+  <logger name="views" level="DEBUG">  </logger>
+  
+</configuration>
