@@ -8,10 +8,17 @@ import play.api.test.Helpers._
 import model.Document
 import model.Default
 import scala.io.Source
+import dataaccess.DataAccessLayer
+import org.specs2.mock.Mockito
+import dataaccess.DocumentRepository
+import dataaccess.InMemoryDocumentRepository
+import dataaccess.InMemoryCommentRepository
 
 @RunWith(classOf[JUnitRunner])
-class DocumentServiceSpec extends SpecificationWithJUnit {
-  val service = new InMemoryDocumentService() 
+class DocumentServiceSpec extends SpecificationWithJUnit with DocumentComponent with DataAccessLayer {
+  val service = new DefaultDocumentService()
+  val documentRepository = new InMemoryDocumentRepository // TODO replace with mock
+  val commentRepository = new InMemoryCommentRepository // TODO replace with mock
 
   val text =
     """|Block 1 (stays the same))

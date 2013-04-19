@@ -1,12 +1,10 @@
-package service
+package dataaccess
 
-import model.Comment
 import model.Document
 import model.MarkdownText
 import model.ScalaCode
-import hashing.TextBlockHash.CreateBlockID
 
-class InMemoryDocumentService extends DocumentService {
+class InMemoryDocumentRepository extends DocumentRepository {
   val markdownText =
     """
   	|# Scrowdlector #
@@ -36,7 +34,7 @@ class InMemoryDocumentService extends DocumentService {
   	""".stripMargin
 
   val scalaCode = """
-  	|package model
+  	|package dataaccess
   	|
   	|import hashing.TextBlockHash._ //[id:head]
   	|

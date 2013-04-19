@@ -1,10 +1,16 @@
 package app
 
-import service.InMemoryCommentService
-import service.InMemoryDocumentService
-import service.ServiceComponent
+import dataaccess.DataAccessLayer
+import dataaccess.InMemoryDocumentRepository
+import dataaccess.InMemoryCommentRepository
+import service.DocumentService
+import service.DocumentComponent
 
-object ApplicationContext extends ServiceComponent {
-  val commentService = new InMemoryCommentService
-  val documentService = new InMemoryDocumentService
+object ApplicationContext extends DocumentComponent with DataAccessLayer {
+  
+  val documentService = new DefaultDocumentService()
+  
+  val documentRepository = new InMemoryDocumentRepository
+  val commentRepository = new InMemoryCommentRepository()
+  
 }

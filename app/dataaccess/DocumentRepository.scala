@@ -1,7 +1,7 @@
-package service
+package dataaccess
 
 import model.Document
 
-trait DocumentService {
+trait DocumentRepository {
   def find(url: String): Option[Document]
 }

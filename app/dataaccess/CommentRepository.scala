@@ -1,8 +1,8 @@
-package service
+package dataaccess
 
 import model.Comment
 
-trait CommentService {
+trait CommentRepository {
   def find(documentBlockIdentifier: String): Seq[Comment]
   
   def add(comment: String, documentBlockIdentifier: String)

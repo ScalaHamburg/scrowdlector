@@ -14,6 +14,15 @@ sealed trait DocumentType {
   def displayStrategy: HTMLConverter = anyToHtml
 }
 
+object DocumentType {
+  val mappings = Map(
+      (".md" -> MarkdownText),
+      (".scala" -> ScalaCode)
+  )
+  
+  def byFileExtension(filename: String) = mappings.getOrElse(filename, Default)
+}
+
 case object Default extends DocumentType {
   val name = "Default"
 }

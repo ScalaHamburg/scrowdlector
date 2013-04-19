@@ -3,8 +3,6 @@ package controllers
 import play.api._
 import play.api.mvc._
 import model.Document
-import service.CommentService
-import service.CommentService
 import model.Comment
 import play.api.libs.json.Json
 import app.ApplicationContext._
@@ -30,7 +28,7 @@ object Application extends Controller with Logging {
   }
   
   def comments(documentBlockIdentifier: String) = Action {
-    val comments = commentService.find(documentBlockIdentifier)   
+    val comments = commentRepository.find(documentBlockIdentifier)   
     val json = Json.toJson(comments)
     Ok(json).as("application/json")
   }
