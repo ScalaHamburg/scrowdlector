@@ -8,6 +8,7 @@ import play.api.libs.json.Json
 import app.ApplicationContext._
 import com.typesafe.scalalogging.slf4j.Logger
 import com.typesafe.scalalogging.slf4j.Logging
+import dataaccess.CommentRepository
 
 object Application extends Controller with Logging {
   
@@ -21,7 +22,7 @@ object Application extends Controller with Logging {
   	logger.info("Loading Document from URL: {}", url)
     
   	document.map(d =>
-      Ok(views.html.document(d))
+      Ok(views.html.document(d, commentRepository))
     ).getOrElse(
       BadRequest("Document with url '" + url + "' not found")
     )

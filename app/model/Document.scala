@@ -4,7 +4,7 @@ import hashing.TextBlockHash._
 import play.api.templates.Html
 import eu.henkelmann.actuarius.ActuariusTransformer
 
-object Document{
+object Document {
   type HTMLConverter = String => Html
 
   def anyToHtml: HTMLConverter = {
@@ -12,20 +12,21 @@ object Document{
   }
 
   def codeToHtml: HTMLConverter = {
-    		block: String => Html("<pre>"+block+"</pre>")
+    block: String => Html("<pre>" + block + "</pre>")
   }
 
   def markdownToHtml: HTMLConverter = {
     block: String => Html(new ActuariusTransformer()(block))
-  } 
-  
-}
-case class Document (val rawText: String, val docType:DocumentType) {
+  }
 
-  val rawBlocks = breakIntoIdentifiableBlocks(rawText, docType.blockStrategy,  docType.idStrategy)
-  
-  val blocks=  rawBlocks.map( tpl => (docType.displayStrategy(tpl._1),tpl._2))
-  
+}
+case class Document(val rawText: String, val docType: DocumentType) {
+
+  val rawBlocks = breakIntoIdentifiableBlocks(rawText, docType.blockStrategy, docType.idStrategy)
+
+  val blocks = rawBlocks.map(tpl => (docType.displayStrategy(tpl._1), tpl._2))
+
+
   
   // TODO implement me
   def toJson() = {

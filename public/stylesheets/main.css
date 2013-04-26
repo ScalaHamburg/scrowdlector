@@ -56,4 +56,11 @@
     border: 2px solid #ddd;
     box-shadow: 2px 2px 5px #ccc;
   }
+
+  .comment-block {
+  	margin-top: 10px;
+  	margin-bottom: 10px;
+        border-bottom: 1px dashed #eee;
+	background: lightgrey;
+  }
   
