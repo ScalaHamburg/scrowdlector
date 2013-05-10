@@ -92,21 +92,22 @@ class DocumentServiceSpec extends SpecificationWithJUnit with DocumentComponent 
       diff.head.oldHash !== diff.head.newHash
     }
 
-    "compareDocuments: removing while adding a new one will result in an ambiguous 'change'" in {
-      val docA = new Document(text, Default)
-      docA.rawBlocks.foreach(println)
-      val docB = new Document(ambiguousText, Default)
-      docB.rawBlocks.foreach(println)
-      val diff = service.compareDocuments(docA, docB)
-
-      println("\ndifferences:")
-      diff.foreach(println)
-      diff should have size 2
-    }
+    // fixed this one...
+//    "compareDocuments: removing while adding a new one will result in an ambiguous 'change'" in {
+//      val docA = new Document(text, Default)
+//      docA.rawBlocks.foreach(println)
+//      val docB = new Document(ambiguousText, Default)
+//      docB.rawBlocks.foreach(println)
+//      val diff = service.compareDocuments(docA, docB)
+//
+//      println("\ndifferences:")
+//      diff.foreach(println)
+//      diff should have size 2
+//    }
     
     "compareDocuments of the two testfiles should show 3 differences" in {
-      val file1 = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("service/TestFile_1.md"))
-      val file2 = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("service/TestFile_2.md"))
+      val file1 = Source.fromInputStream(Thread.currentThread ().getContextClassLoader ().getResourceAsStream("service/TestFile_1.md"))
+      val file2 = Source.fromInputStream(Thread.currentThread ().getContextClassLoader ().getResourceAsStream("service/TestFile_2.md"))
       val doc1 = new Document(file1.getLines.reduceLeft( (a, b) => a+"\n"+b), Default)
       val doc2 = new Document(file2.getLines.reduceLeft( (a, b) => a+"\n"+b), Default)
       val diff = service.compareDocuments(doc1, doc2)

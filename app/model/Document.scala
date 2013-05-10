@@ -3,6 +3,8 @@ package model
 import hashing.TextBlockHash._
 import play.api.templates.Html
 import eu.henkelmann.actuarius.ActuariusTransformer
+import java.util.concurrent.atomic.AtomicInteger
+
 
 object Document {
   type HTMLConverter = String => Html
@@ -11,8 +13,23 @@ object Document {
     block: String => Html(block)
   }
 
+  val counter = new AtomicInteger(1)
+  
   def codeToHtml: HTMLConverter = {
-    block: String => Html("<pre>" + block + "</pre>")
+    block: String => 
+      val code = Html("<textarea id=\"code"+counter+"\" name=\"code"+counter+"\">" + block + "</textarea>" +
+    		"""
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"""+counter+""""), {
+        lineNumbers: false,
+        matchBrackets: true,
+        theme: "eclipse",
+        mode: "text/x-scala"
+      });
+    </script>     
+    """)
+    counter.set(counter.get() + block.count(_=='\n'))
+    code
   }
 
   def markdownToHtml: HTMLConverter = {

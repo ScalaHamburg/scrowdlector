@@ -1,5 +1,7 @@
 package hashing
 
+import java.security.MessageDigest
+
 /**
  * A collection of functions to transform a monolithic text in multiple blocks that are identifiable by
  * block hashes or IDs.
@@ -20,6 +22,15 @@ object TextBlockHash {
    * Hash is built from the Block-contents
    */
   def buildSimpleHashStrategy: CreateBlockID = { block: String => block.hashCode().toString }
+  
+  /**
+   * I guess SHA1 is also used by GIT
+   */
+  def buildSHA1HashStrategy: CreateBlockID  = { block: String =>
+    val digest = MessageDigest.getInstance("SHA1").digest(block.getBytes())
+    val hex=digest.map(Integer.toHexString(_))
+    hex.mkString("")
+    }
   /**
    * Id is extracted from block marker eg: [id:123]
    */
@@ -81,7 +92,7 @@ object TextBlockHash {
    * After the text was blockified we create a identifier (eg. hash) of each block
    * The default CreateBlockID-method is the buildSimpleHashStrategy
    */
-  def identifyBlock(block: String, createHash: CreateBlockID = buildSimpleHashStrategy) = {
+  def identifyBlock(block: String, createHash: CreateBlockID = buildSHA1HashStrategy) = {
     (block, createHash(block))
   }
 

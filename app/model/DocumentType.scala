@@ -10,7 +10,7 @@ import model.Document._
 sealed trait DocumentType {
   def name: String
   def blockStrategy: FindBlockBorder = newlineBlockStrategy
-  def idStrategy: CreateBlockID = buildSimpleHashStrategy
+  def idStrategy: CreateBlockID = buildSHA1HashStrategy
   def displayStrategy: HTMLConverter = anyToHtml
 }
 
@@ -20,7 +20,9 @@ object DocumentType {
       (".scala" -> ScalaCode)
   )
   
-  def byFileExtension(filename: String) = mappings.getOrElse(filename, Default)
+  def byFileExtension(extension: String) = {
+    mappings.getOrElse(extension, Default)
+  }
 }
 
 case object Default extends DocumentType {

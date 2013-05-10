@@ -12,6 +12,7 @@ class HTTPDocumentRepository extends DocumentRepository {
     
     if (source.hasNext) {
       val text = source.getLines.reduceLeft((s, tring) => s + "\n" + tring)
+      // try 'n find the correct Document type for the URL and returned content
       Some(new Document(text, Default))
     } else {
       None

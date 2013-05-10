@@ -13,7 +13,28 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.min.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 	  
+    <link rel="stylesheet" href="@routes.Assets.at("/stylesheets/codemirror.css")">
+    <link rel="stylesheet" href="@routes.Assets.at("/stylesheets/eclipse.css")">
+    <script src="@routes.Assets.at("/javascripts/codemirror.js")"></script>
+    <script src="@routes.Assets.at("/javascripts/matchbrackets.js")"></script>
+    <script src="@routes.Assets.at("/javascripts/clike.js")"></script>
+    <link rel="stylesheet" href="@routes.Assets.at("/stylesheets/docs.css")">
     
+    <style>
+      body
+      {
+        margin: 0;
+        padding: 0;
+        max-width:inherit;
+        height: 100%;
+      }
+      html, form, .CodeMirror, .CodeMirror-scroll
+      {
+        height: 100%;        
+      }
+    </style> 
+    
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <!--script src="../assets/js/html5shiv.js"></script-->
